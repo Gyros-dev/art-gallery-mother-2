@@ -1,0 +1,120 @@
+.about-section {
+    max-width: 1200px;
+    margin: 100px auto 80px auto;
+    padding: 0 24px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 48px;
+    color: #1d1d1f;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+}
+
+.about-text {
+    flex: 1 1 60%;
+    max-width: 460px;
+    max-height: 60vh; /* фиксированная высота */
+    overflow-y: auto; /* включаем вертикальный скролл */
+    padding-right: 1rem;
+}
+
+.about-text h1 {
+    font-size: 36px;
+    margin-bottom: 24px;
+    font-weight: 600;
+    color: #000;
+    letter-spacing: -0.5px;
+}
+
+.about-text p {
+    font-size: 16px;
+    line-height: 1.65;
+    color: #444;
+    font-weight: 400;
+}
+
+.about-image {
+    flex: 1 1 300px;
+    max-width: 400px;
+
+}
+
+.about-image img {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 12px 36px rgba(110, 107, 107, 0.3);
+    object-fit: cover;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.about-image img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.18);
+}
+
+
+
+.contact-block {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px 20px;
+    background: rgba(248, 248, 248, 0.95);
+    border-top: 1px solid rgba(200, 200, 200, 0.4);
+    text-align: center;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 -1px 6px rgba(0, 0, 0, 0.05);
+    z-index: 100;
+}
+
+.contact-block h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #000;
+    margin: 6px 0;
+    letter-spacing: -0.3px;
+}
+
+.contact-block p {
+    font-size: 14px;
+    color: #444;
+    margin: 4px 0;
+    letter-spacing: -0.2px;
+}
+
+.contact-block a {
+    color: #007aff;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.contact-block a:hover {
+    color: #005bb5;
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .about-section {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .about-text h1 {
+        font-size: 32px;
+    }
+
+    .about-text p {
+        font-size: 16px;
+    }
+
+    .about-image {
+        max-width: 100%;
+    }
+
+}

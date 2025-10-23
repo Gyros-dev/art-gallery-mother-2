@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  font-family: -apple-system;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .App-logo {
@@ -14,7 +17,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #617cb2;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
