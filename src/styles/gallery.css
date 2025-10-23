@@ -121,3 +121,16 @@
 /*    filter: blur(10px) brightness(1); !* тот же, что у .side по умолчанию *!*/
 /*    transition: none;*/
 /*}*/
+.center img {
+    transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.center.slide-left img {
+    transform: translateX(-60px);
+    opacity: 0;
+}
+
+.center.slide-right img {
+    transform: translateX(60px);
+    opacity: 0;
+}

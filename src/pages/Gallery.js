@@ -18,10 +18,47 @@ export default function Gallery() {
             .catch((err) => console.error('Ошибка загрузки изображений:', err));
     }, []);
 
-    if (images.length === 0) return <p>Загрузка галереи...</p>;
+    const [animating, setAnimating] = useState(false);
+    const [direction, setDirection] = useState(null);
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === 'ArrowLeft') triggerSlide('left');
+            if (e.key === 'ArrowRight') triggerSlide('right');
+        };
+
+        const handleWheel = (e) => {
+            if (e.deltaY > 0) triggerSlide('right');
+            else if (e.deltaY < 0) triggerSlide('left');
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        window.addEventListener('wheel', handleWheel);
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+            window.removeEventListener('wheel', handleWheel);
+        };
+    }, [images]);
+
 
     const prev = () => setCurrent((c) => (c - 1 + images.length) % images.length);
     const next = () => setCurrent((c) => (c + 1) % images.length);
+
+    const triggerSlide = (dir) => {
+        if (animating || images.length === 0) return;
+        setAnimating(true);
+        setDirection(dir);
+
+        setTimeout(() => {
+            if (dir === 'left') prev();
+            else next();
+            setAnimating(false);
+        }, 400); // длительность анимации в мс
+    };
+
+    if (images.length === 0) return <p>Загрузка галереи...</p>;
+
 
     const main = images[current];
     const left = images[(current - 1 + images.length) % images.length];
@@ -29,12 +66,12 @@ export default function Gallery() {
 
     return (
         <div id="gallery">
-            <div className="side left" onClick={prev}>
+            <div className="side left" onClick={() => triggerSlide('left')}>
                 <img src={left.src} alt="prev" />
             </div>
 
             <div
-                className="center tooltip-wrapper"
+                className={`center tooltip-wrapper ${animating ? (direction === 'left' ? 'slide-left' : 'slide-right') : ''}`}
                 onMouseEnter={() => setTooltipVisible(true)}
                 onMouseLeave={() => setTooltipVisible(false)}
             >
@@ -52,7 +89,7 @@ export default function Gallery() {
                 </div>
             </div>
 
-            <div className="side right" onClick={next}>
+            <div className="side right" onClick={() => triggerSlide('right')}>
                 <img src={right.src} alt="next" />
             </div>
         </div>
