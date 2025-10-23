@@ -1,14 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import '../styles/gallery.css';
+import '../styles/tooltip.css';
 
 export default function Gallery() {
     const [images, setImages] = useState([]);
     const [current, setCurrent] = useState(0);
+    const [tooltipVisible, setTooltipVisible] = useState(false);
+    const tooltipRef = useRef(null);
 
-    // Загружаем JSON из public/data/images.json
     useEffect(() => {
         fetch('/data/images.json')
-            .then((res) => res.json())
+            .then((res) => {
+                if (!res.ok) throw new Error(`Ошибка HTTP: ${res.status}`);
+                return res.json();
+            })
             .then((data) => setImages(data))
             .catch((err) => console.error('Ошибка загрузки изображений:', err));
     }, []);
@@ -28,8 +33,23 @@ export default function Gallery() {
                 <img src={left.src} alt="prev" />
             </div>
 
-            <div className="center">
+            <div
+                className="center tooltip-wrapper"
+                onMouseEnter={() => setTooltipVisible(true)}
+                onMouseLeave={() => setTooltipVisible(false)}
+            >
                 <img src={main.src} alt="main" />
+                <div
+                    ref={tooltipRef}
+                    className="tooltip"
+                    style={{ opacity: tooltipVisible ? 1 : 0 }}
+                >
+                    <strong>{main.info}</strong><br />
+                    {main.year && <span>{main.year}</span>}<br />
+                    {main.material && <span>{main.material}</span>}<br />
+                    {main.size && <span>{main.size}</span>}<br />
+                    {main.location && <span>{main.location}</span>}
+                </div>
             </div>
 
             <div className="side right" onClick={next}>
