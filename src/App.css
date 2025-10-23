@@ -1,8 +1,9 @@
 .App {
   text-align: center;
   font-family: -apple-system;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    body {
+        font-family: "Roboto", sans-serif;
+    }
 }
 
 .App-logo {
